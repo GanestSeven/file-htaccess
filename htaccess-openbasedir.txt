@@ -1,0 +1,132 @@
+# <IfModule mod_rewrite.c>
+# Options -Indexes
+# RewriteEngine On
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteRule ^(.*)$ index.php/$1 [L]
+
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# </IfModule>
+
+# <IfModule mod_rewrite.c>
+#     RewriteEngine On
+#     # Protect hidden directory from vulnerability scanner
+#     RewriteRule (^|/)\.([^/]+)(/|$) - [L,F]
+#     RewriteRule (^|/)([^/]+)~(/|$) - [L,F]
+# </IfModule>
+
+# <IfModule mod_headers.c>
+#   Header set X-XSS-Protection "1; mode=block"
+#   Header always set X-Frame-Options SAMEORIGIN
+# </IfModule>
+
+# <Files *.htaccess>
+# order allow,deny
+# deny from all
+# </Files>
+
+# <Files *.html>
+# order allow,deny
+# deny from all
+# </Files>
+
+# <Files *.xml>
+# order allow,deny
+# deny from all
+# </Files>
+
+# <Files *.zip>
+# order allow,deny
+# deny from all
+# </Files>
+
+# <Files *.txt>
+# order allow,deny
+# deny from all
+# </Files>
+
+# <Files ~ "^.*\.([Hh][Tt][Aa])">
+# order allow,deny
+# deny from all
+# satisfy all
+# </Files>
+
+php_value open_basedir "/opt/alt/php74/var/lib/php/session:/home/u116580426/domains/unipem.ac.id/public_html/"
+
+# Aktifkan mod_rewrite jika tersedia
+<IfModule mod_rewrite.c>
+    Options -Indexes
+    RewriteEngine On
+    
+    # Protect hidden directory from vulnerability scanner
+    RewriteRule (^|/)\.([^/]+)(/|$) - [L,F]
+    RewriteRule (^|/)([^/]+)~(/|$) - [L,F]
+
+    # Redirect semua request ke index.php kecuali jika file atau direktori ada
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php/$1 [L]
+
+    # Redirect HTTP ke HTTPS
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header set X-XSS-Protection "1; mode=block"
+  Header always set X-Frame-Options SAMEORIGIN
+</IfModule>
+
+# Blokir akses ke file .htaccess
+<Files .htaccess>
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Blokir akses ke file .xml
+<Files *.xml>
+order allow,deny
+deny from all
+</Files>
+
+# Blokir akses ke file .zip
+<Files *.zip>
+order allow,deny
+deny from all
+</Files>
+
+# Blokir akses ke file .txt
+<Files *.txt>
+order allow,deny
+deny from all
+</Files>
+
+# Blokir akses ke semua file PHP secara default
+<FilesMatch "\.php$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Memperbolehkan akses ke index.php pada root
+<Files "index.php">
+    Order Allow,Deny
+    Allow from all
+</Files>
+
+# DO NOT REMOVE THIS LINE AND THE LINES BELOW ERRORPAGEID:V8Cmvp2bO0
+ErrorDocument 404 /404.html
+# DO NOT REMOVE THIS LINE AND THE LINES ABOVE V8Cmvp2bO0:ERRORPAGEID
+
+# DO NOT REMOVE THIS LINE AND THE LINES BELOW ERRORPAGEID:BcsBtJAGVn
+ErrorDocument 403 /403.html
+# DO NOT REMOVE THIS LINE AND THE LINES ABOVE BcsBtJAGVn:ERRORPAGEID
+
+# DO NOT REMOVE THIS LINE AND THE LINES BELOW ERRORPAGEID:mBCN1Ihqm5
+ErrorDocument 500 /500.html
+# DO NOT REMOVE THIS LINE AND THE LINES ABOVE mBCN1Ihqm5:ERRORPAGEID
+
+# DO NOT REMOVE THIS LINE AND THE LINES BELOW ERRORPAGEID:AvooRGFUiq
+ErrorDocument 400 /400.html
+# DO NOT REMOVE THIS LINE AND THE LINES ABOVE AvooRGFUiq:ERRORPAGEID
